@@ -148,7 +148,6 @@ export class BarVerticalComponent extends BaseChartComponent {
   dataLabelMaxHeight: any = { negative: 0, positive: 0 };
 
   ngOnChanges(): void {
-    console.log(this.results);
     this.update();
   }
 
