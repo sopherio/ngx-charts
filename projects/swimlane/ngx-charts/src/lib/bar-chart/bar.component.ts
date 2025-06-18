@@ -11,10 +11,16 @@ import {
 } from '@angular/core';
 import { select } from 'd3-selection';
 import { roundedRect } from '../common/shape.helper';
-import { id } from '../utils/id';
-import { DataItem } from '../models/chart-data.model';
 import { BarOrientation } from '../common/types/bar-orientation.enum';
 import { Gradient } from '../common/types/gradient.interface';
+import { DataItem } from '../models/chart-data.model';
+import { id } from '../utils/id';
+
+export interface BarMarker {
+  value: number;
+  label: string;
+  color?: string;
+}
 
 @Component({
   selector: 'g[ngx-charts-bar]',
@@ -34,6 +40,40 @@ import { Gradient } from '../common/types/gradient.interface';
       [attr.fill]="hasGradient ? gradientFill : fill"
       (click)="select.emit(data)"
     />
+    <!-- Bar markers -->
+    <svg:g *ngFor="let marker of markers">
+      <svg:line *ngIf="orientation === 'vertical'"
+      [attr.x1]="x"
+      [attr.y1]="y + height * (1 - marker.value / data.value)"
+      [attr.x2]="x + width"
+      [attr.y2]="y + height * (1 - marker.value / data.value)"
+      [attr.stroke]="marker.color || '#000'"
+      stroke-width="1"
+      stroke-dasharray="3,3"
+      />
+      <svg:line *ngIf="orientation === 'horizontal'"
+      [attr.x1]="x + width * (marker.value / data.value)"
+      [attr.y1]="y"
+      [attr.x2]="x + width * (marker.value / data.value)"
+      [attr.y2]="y + height"
+      [attr.stroke]="marker.color || '#000'"
+      stroke-width="1"
+      stroke-dasharray="3,3"
+      />
+      <svg:text *ngIf="showMarkerLabels && orientation === 'vertical'"
+      [attr.x]="x + 2"
+      [attr.y]="y + height * (1 - marker.value / data.value) - 6"
+      alignment-baseline="middle"
+      font-size="11px"
+      [attr.fill]="marker.color || '#000'"
+      >{{marker.label}}</svg:text>
+      <svg:text *ngIf="showMarkerLabels && orientation === 'horizontal'"
+      [attr.x]="x + width * (marker.value / data.value) + 3"
+      [attr.y]="y + height / 2"
+      font-size="11px"
+      [attr.fill]="marker.color || '#000'"
+      >{{marker.label}}</svg:text>
+    </svg:g>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: false
@@ -54,6 +94,8 @@ export class BarComponent implements OnChanges {
   @Input() animations: boolean = true;
   @Input() ariaLabel: string;
   @Input() noBarWhenZero: boolean = true;
+  @Input() markers: BarMarker[] = [];
+  @Input() showMarkerLabels: boolean = true;
 
   @Output() select: EventEmitter<DataItem> = new EventEmitter();
   @Output() activate: EventEmitter<DataItem> = new EventEmitter();
