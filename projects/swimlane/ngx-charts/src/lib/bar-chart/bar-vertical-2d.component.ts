@@ -97,6 +97,7 @@ import { ViewDimensions } from '../common/types/view-dimension.interface';
             [roundEdges]="roundEdges"
             [animations]="animations"
             [noBarWhenZero]="noBarWhenZero"
+            [showAnnotationLabels]="showAnnotationLabels"
             (select)="onClick($event, group)"
             (activate)="onActivate($event, group)"
             (deactivate)="onDeactivate($event, group)"
@@ -123,6 +124,7 @@ import { ViewDimensions } from '../common/types/view-dimension.interface';
             [roundEdges]="roundEdges"
             [animations]="animations"
             [noBarWhenZero]="noBarWhenZero"
+            [showAnnotationLabels]="showAnnotationLabels"
             (select)="onClick($event, group)"
             (activate)="onActivate($event, group)"
             (deactivate)="onDeactivate($event, group)"
@@ -183,6 +185,7 @@ export class BarVertical2DComponent extends BaseChartComponent {
   @Input() dataLabelFormatting: any;
   @Input() noBarWhenZero: boolean = true;
   @Input() wrapTicks = false;
+  @Input() showAnnotationLabels: boolean = true;
 
   @Output() activate: EventEmitter<any> = new EventEmitter();
   @Output() deactivate: EventEmitter<any> = new EventEmitter();

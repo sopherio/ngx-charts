@@ -1,16 +1,16 @@
-import { Component, Input, Output, EventEmitter, OnChanges, ChangeDetectionStrategy, TemplateRef } from '@angular/core';
-import { trigger, style, animate, transition } from '@angular/animations';
-import { formatLabel, escapeLabel } from '../common/label.helper';
-import { DataItem, StringOrNumberOrDate } from '../models/chart-data.model';
+import { animate, style, transition, trigger } from '@angular/animations';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output, TemplateRef } from '@angular/core';
 import { ColorHelper } from '../common/color.helper';
+import { escapeLabel, formatLabel } from '../common/label.helper';
 import { PlacementTypes } from '../common/tooltip/position';
 import { StyleTypes } from '../common/tooltip/style.type';
+import { BarOrientation } from '../common/types/bar-orientation.enum';
+import { ScaleType } from '../common/types/scale-type.enum';
+import { ViewDimensions } from '../common/types/view-dimension.interface';
+import { DataItem, StringOrNumberOrDate } from '../models/chart-data.model';
 import { BarChartType } from './types/bar-chart-type.enum';
 import { Bar } from './types/bar.model';
 import { D0Types } from './types/d0-type.enum';
-import { ViewDimensions } from '../common/types/view-dimension.interface';
-import { BarOrientation } from '../common/types/bar-orientation.enum';
-import { ScaleType } from '../common/types/scale-type.enum';
 
 @Component({
   selector: 'g[ngx-charts-series-horizontal]',
@@ -43,6 +43,7 @@ import { ScaleType } from '../common/types/scale-type.enum';
       [tooltipTemplate]="tooltipTemplate"
       [tooltipContext]="bar.data"
       [noBarWhenZero]="noBarWhenZero"
+      [showAnnotationLabels]="showAnnotationLabels"
     ></svg:g>
     <svg:g *ngIf="showDataLabel">
       <svg:g
@@ -89,6 +90,7 @@ export class SeriesHorizontal implements OnChanges {
   @Input() showDataLabel: boolean = false;
   @Input() dataLabelFormatting: any;
   @Input() noBarWhenZero: boolean = true;
+  @Input() showAnnotationLabels: boolean = true;
 
   @Output() select: EventEmitter<DataItem> = new EventEmitter();
   @Output() activate = new EventEmitter();

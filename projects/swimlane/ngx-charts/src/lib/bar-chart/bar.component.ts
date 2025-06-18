@@ -54,14 +54,14 @@ import { id } from '../utils/id';
       stroke-width="1"
       stroke-dasharray="3,3"
       />
-      <svg:text *ngIf="showMarkerLabels && orientation === 'vertical'"
+      <svg:text *ngIf="showAnnotationLabels && orientation === 'vertical'"
       [attr.x]="x + 2"
       [attr.y]="y + height * (1 - marker.value / data.value) - 6"
       alignment-baseline="middle"
       font-size="11px"
       [attr.fill]="marker.color || '#000'"
       >{{marker.label}}</svg:text>
-      <svg:text *ngIf="showMarkerLabels && orientation === 'horizontal'"
+      <svg:text *ngIf="showAnnotationLabels && orientation === 'horizontal'"
       [attr.x]="x + width * (marker.value / data.value) + 3"
       [attr.y]="y + height / 2"
       font-size="11px"
@@ -88,7 +88,7 @@ export class BarComponent implements OnChanges {
   @Input() animations: boolean = true;
   @Input() ariaLabel: string;
   @Input() noBarWhenZero: boolean = true;
-  @Input() showMarkerLabels: boolean = true;
+  @Input() showAnnotationLabels: boolean = true;
 
   @Output() select: EventEmitter<DataItem> = new EventEmitter();
   @Output() activate: EventEmitter<DataItem> = new EventEmitter();

@@ -80,6 +80,7 @@ import { DataItem } from '../models/chart-data.model';
           [roundEdges]="roundEdges"
           [animations]="animations"
           [noBarWhenZero]="noBarWhenZero"
+          [showAnnotationLabels]="showAnnotationLabels"
           (activate)="onActivate($event)"
           (deactivate)="onDeactivate($event)"
           (select)="onClick($event)"
@@ -126,6 +127,7 @@ export class BarVerticalComponent extends BaseChartComponent {
   @Input() dataLabelFormatting: any;
   @Input() noBarWhenZero: boolean = true;
   @Input() wrapTicks = false;
+  @Input() showAnnotationLabels: boolean = true;
 
   @Output() activate: EventEmitter<any> = new EventEmitter();
   @Output() deactivate: EventEmitter<any> = new EventEmitter();
