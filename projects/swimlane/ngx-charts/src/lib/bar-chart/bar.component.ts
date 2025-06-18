@@ -16,12 +16,6 @@ import { Gradient } from '../common/types/gradient.interface';
 import { DataItem } from '../models/chart-data.model';
 import { id } from '../utils/id';
 
-export interface BarMarker {
-  value: number;
-  label: string;
-  color?: string;
-}
-
 @Component({
   selector: 'g[ngx-charts-bar]',
   template: `
@@ -41,7 +35,7 @@ export interface BarMarker {
       (click)="select.emit(data)"
     />
     <!-- Bar markers -->
-    <svg:g *ngFor="let marker of markers">
+    <svg:g *ngFor="let marker of data.annotations || []">
       <svg:line *ngIf="orientation === 'vertical'"
       [attr.x1]="x"
       [attr.y1]="y + height * (1 - marker.value / data.value)"
@@ -94,7 +88,6 @@ export class BarComponent implements OnChanges {
   @Input() animations: boolean = true;
   @Input() ariaLabel: string;
   @Input() noBarWhenZero: boolean = true;
-  @Input() markers: BarMarker[] = [];
   @Input() showMarkerLabels: boolean = true;
 
   @Output() select: EventEmitter<DataItem> = new EventEmitter();

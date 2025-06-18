@@ -1,22 +1,22 @@
 import {
-  Component,
-  Input,
-  ViewEncapsulation,
-  Output,
-  EventEmitter,
   ChangeDetectionStrategy,
+  Component,
   ContentChild,
-  TemplateRef
+  EventEmitter,
+  Input,
+  Output,
+  TemplateRef,
+  ViewEncapsulation
 } from '@angular/core';
 import { scaleBand, scaleLinear } from 'd3-scale';
 
-import { calculateViewDimensions } from '../common/view-dimensions.helper';
-import { ColorHelper } from '../common/color.helper';
 import { BaseChartComponent } from '../common/base-chart.component';
-import { DataItem } from '../models/chart-data.model';
+import { ColorHelper } from '../common/color.helper';
 import { LegendOptions, LegendPosition } from '../common/types/legend.model';
 import { ScaleType } from '../common/types/scale-type.enum';
 import { ViewDimensions } from '../common/types/view-dimension.interface';
+import { calculateViewDimensions } from '../common/view-dimensions.helper';
+import { DataItem } from '../models/chart-data.model';
 
 @Component({
   selector: 'ngx-charts-bar-vertical',
@@ -146,6 +146,7 @@ export class BarVerticalComponent extends BaseChartComponent {
   dataLabelMaxHeight: any = { negative: 0, positive: 0 };
 
   ngOnChanges(): void {
+    console.log(this.results);
     this.update();
   }
 
