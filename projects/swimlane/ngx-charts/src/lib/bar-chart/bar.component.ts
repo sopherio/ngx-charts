@@ -42,7 +42,7 @@ import { id } from '../utils/id';
         [attr.x2]="x + width"
         [attr.y2]="annotation.position"
         [attr.stroke]="annotation.color || '#000'"
-        stroke-width="1"
+        stroke-width="2"
         stroke-dasharray="3,3"
       />
       <svg:line *ngIf="orientation === 'horizontal'"
@@ -51,7 +51,7 @@ import { id } from '../utils/id';
         [attr.x2]="annotation.position"
         [attr.y2]="y + height"
         [attr.stroke]="annotation.color || '#000'"
-        stroke-width="1"
+        stroke-width="2"
         stroke-dasharray="3,3"
       />
       <svg:text *ngIf="showAnnotationLabels && orientation === 'vertical'"
