@@ -13,7 +13,7 @@ import { select } from 'd3-selection';
 import { roundedRect } from '../common/shape.helper';
 import { BarOrientation } from '../common/types/bar-orientation.enum';
 import { Gradient } from '../common/types/gradient.interface';
-import { DataItem } from '../models/chart-data.model';
+import { Annotation, DataItem } from '../models/chart-data.model';
 import { id } from '../utils/id';
 
 @Component({
@@ -35,38 +35,38 @@ import { id } from '../utils/id';
       (click)="select.emit(data)"
     />
     <!-- Bar markers -->
-    <svg:g *ngFor="let marker of data.annotations || []">
+    <svg:g *ngFor="let annotation of annotations || []">
       <svg:line *ngIf="orientation === 'vertical'"
-      [attr.x1]="x"
-      [attr.y1]="y + height * (1 - marker.value / data.value)"
-      [attr.x2]="x + width"
-      [attr.y2]="y + height * (1 - marker.value / data.value)"
-      [attr.stroke]="marker.color || '#000'"
-      stroke-width="1"
-      stroke-dasharray="3,3"
+        [attr.x1]="x"
+        [attr.y1]="annotation.position"
+        [attr.x2]="x + width"
+        [attr.y2]="annotation.position"
+        [attr.stroke]="annotation.color || '#000'"
+        stroke-width="1"
+        stroke-dasharray="3,3"
       />
       <svg:line *ngIf="orientation === 'horizontal'"
-      [attr.x1]="x + width * (marker.value / data.value)"
-      [attr.y1]="y"
-      [attr.x2]="x + width * (marker.value / data.value)"
-      [attr.y2]="y + height"
-      [attr.stroke]="marker.color || '#000'"
-      stroke-width="1"
-      stroke-dasharray="3,3"
+        [attr.x1]="annotation.position"
+        [attr.y1]="y"
+        [attr.x2]="annotation.position"
+        [attr.y2]="y + height"
+        [attr.stroke]="annotation.color || '#000'"
+        stroke-width="1"
+        stroke-dasharray="3,3"
       />
       <svg:text *ngIf="showAnnotationLabels && orientation === 'vertical'"
-      [attr.x]="x + 2"
-      [attr.y]="y + height * (1 - marker.value / data.value) - 6"
-      alignment-baseline="middle"
-      font-size="11px"
-      [attr.fill]="marker.color || '#000'"
-      >{{marker.label}}</svg:text>
+        [attr.x]="x + 2"
+        [attr.y]="annotation.position - 6"
+        alignment-baseline="middle"
+        font-size="11px"
+        [attr.fill]="annotation.color || '#000'"
+      >{{annotation.label}}</svg:text>
       <svg:text *ngIf="showAnnotationLabels && orientation === 'horizontal'"
-      [attr.x]="x + width * (marker.value / data.value) + 3"
-      [attr.y]="y + height / 2"
-      font-size="11px"
-      [attr.fill]="marker.color || '#000'"
-      >{{marker.label}}</svg:text>
+        [attr.x]="annotation.position + 3"
+        [attr.y]="y + height / 2"
+        font-size="11px"
+        [attr.fill]="annotation.color || '#000'"
+      >{{annotation.label}}</svg:text>
     </svg:g>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -88,6 +88,7 @@ export class BarComponent implements OnChanges {
   @Input() animations: boolean = true;
   @Input() ariaLabel: string;
   @Input() noBarWhenZero: boolean = true;
+  @Input() annotations: Annotation[] = [];
   @Input() showAnnotationLabels: boolean = true;
 
   @Output() select: EventEmitter<DataItem> = new EventEmitter();

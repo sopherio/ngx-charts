@@ -18,12 +18,12 @@ export const single: SingleSeries = [
     },
     annotations: [
       {
-        value: 10000,
+        value: 20000,
         label: 'Marker 1',
         color: '#ff0000'
       },
       {
-        value: 35000,
+        value: 40000,
         label: 'Marker 2',
         color: '#00ff00'
       }

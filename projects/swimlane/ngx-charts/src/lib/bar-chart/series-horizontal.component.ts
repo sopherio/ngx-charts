@@ -43,6 +43,7 @@ import { D0Types } from './types/d0-type.enum';
       [tooltipTemplate]="tooltipTemplate"
       [tooltipContext]="bar.data"
       [noBarWhenZero]="noBarWhenZero"
+      [annotations]="bar.annotations"
       [showAnnotationLabels]="showAnnotationLabels"
     ></svg:g>
     <svg:g *ngIf="showDataLabel">
@@ -134,7 +135,8 @@ export class SeriesHorizontal implements OnChanges {
         label,
         roundEdges,
         data: d,
-        formattedLabel
+        formattedLabel,
+        annotations: []
       };
 
       bar.height = this.yScale.bandwidth();
@@ -147,6 +149,13 @@ export class SeriesHorizontal implements OnChanges {
           bar.x = this.xScale(xScaleMin);
         }
         bar.y = this.yScale(label);
+        for (const a of d.annotations || []) {
+          bar.annotations.push({
+            position: this.xScale(a.value),
+            label: a.label,
+            color: a.color
+          });
+        }
       } else if (this.type === BarChartType.Stacked) {
         const offset0 = d0[d0Type];
         const offset1 = offset0 + value;

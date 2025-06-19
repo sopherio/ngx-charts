@@ -56,6 +56,7 @@ import { D0Types } from './types/d0-type.enum';
         [tooltipContext]="bar.data"
         [noBarWhenZero]="noBarWhenZero"
         [animations]="animations"
+        [annotations]="bar.annotations"
         [showAnnotationLabels]="showAnnotationLabels"
       ></svg:g>
     </svg:g>
@@ -87,6 +88,7 @@ import { D0Types } from './types/d0-type.enum';
         [tooltipContext]="bar.data"
         [noBarWhenZero]="noBarWhenZero"
         [animations]="animations"
+        [annotations]="bar.annotations"
         [showAnnotationLabels]="showAnnotationLabels"
       ></svg:g>
     </svg:g>
@@ -200,7 +202,8 @@ export class SeriesVerticalComponent implements OnChanges {
         formattedLabel,
         height: 0,
         x: 0,
-        y: 0
+        y: 0,
+        annotations: []
       };
 
       if (this.type === BarChartType.Standard) {
@@ -211,6 +214,13 @@ export class SeriesVerticalComponent implements OnChanges {
           bar.y = this.yScale(0);
         } else {
           bar.y = this.yScale(value);
+        }
+        for (const a of d.annotations || []) {
+          bar.annotations.push({
+            position: this.yScale(a.value),
+            label: a.label,
+            color: a.color
+          });
         }
       } else if (this.type === BarChartType.Stacked) {
         const offset0 = d0[d0Type];
