@@ -321,6 +321,8 @@ export class BarHorizontal2DComponent extends BaseChartComponent {
 
     for (const group of this.results) {
       for (const d of group.series) {
+        const annotationsValues = (d.annotations || []).map(a => a.value);
+        domain.push(...annotationsValues);
         if (this.noBarWhenZero && d.value === 0) {
           continue;
         }

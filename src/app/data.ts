@@ -23,7 +23,7 @@ export const single: SingleSeries = [
         color: '#ff0000'
       },
       {
-        value: 40000,
+        value: 50000,
         label: 'Marker 2',
         color: '#00ff00'
       }
@@ -87,7 +87,19 @@ export const multi: MultiSeries = [
         value: 40632,
         extra: {
           code: 'de'
-        }
+        },
+        annotations: [
+          {
+            value: 20000,
+            label: 'Marker 1',
+            color: '#ff0000'
+          },
+          {
+            value: 50000,
+            label: 'Marker 2',
+            color: '#00ff00'
+          }
+        ]
       },
       {
         name: '2000',

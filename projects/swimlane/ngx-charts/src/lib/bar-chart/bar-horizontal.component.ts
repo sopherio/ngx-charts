@@ -16,6 +16,7 @@ import { LegendOptions, LegendPosition } from '../common/types/legend.model';
 import { ScaleType } from '../common/types/scale-type.enum';
 import { ViewDimensions } from '../common/types/view-dimension.interface';
 import { calculateViewDimensions } from '../common/view-dimensions.helper';
+import { DataItem } from '../models/chart-data.model';
 
 @Component({
   selector: 'ngx-charts-bar-horizontal',
@@ -200,7 +201,11 @@ export class BarHorizontalComponent extends BaseChartComponent {
   }
 
   getXDomain(): [number, number] {
-    const values = this.results.filter(d => d.value || !this.noBarWhenZero).map(d => d.value);
+    const items = this.results as DataItem[];
+    const dataValues = items.filter(d => d.value || !this.noBarWhenZero).map(d => d.value);
+    const annotationsValues = items.flatMap(r => r.annotations || []).map(a => a.value);
+    const values = [...dataValues, ...annotationsValues];
+
     const min = this.xScaleMin ? Math.min(this.xScaleMin, ...values) : Math.min(0, ...values);
 
     const max = this.xScaleMax ? Math.max(this.xScaleMax, ...values) : Math.max(0, ...values);

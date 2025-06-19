@@ -205,7 +205,10 @@ export class BarVerticalComponent extends BaseChartComponent {
   }
 
   getYDomain(): [number, number] {
-    const values = this.results.filter(d => d.value || !this.noBarWhenZero).map(d => d.value);
+    const items = this.results as DataItem[];
+    const dataValues = items.filter(d => d.value || !this.noBarWhenZero).map(d => d.value);
+    const annotationsValues = items.flatMap(r => r.annotations || []).map(a => a.value);
+    const values = [...dataValues, ...annotationsValues];
 
     let min = this.yScaleMin ? Math.min(this.yScaleMin, ...values) : Math.min(0, ...values);
     if (this.yAxisTicks && !this.yAxisTicks.some(isNaN)) {
