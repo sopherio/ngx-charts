@@ -205,7 +205,7 @@ export class BarVerticalComponent extends BaseChartComponent {
   }
 
   getYDomain(): [number, number] {
-    const values = this.results.map(d => d.value);
+    const values = this.results.filter(d => d.value || !this.noBarWhenZero).map(d => d.value);
 
     let min = this.yScaleMin ? Math.min(this.yScaleMin, ...values) : Math.min(0, ...values);
     if (this.yAxisTicks && !this.yAxisTicks.some(isNaN)) {

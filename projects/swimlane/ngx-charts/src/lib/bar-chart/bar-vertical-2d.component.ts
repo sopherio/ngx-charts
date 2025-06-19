@@ -318,6 +318,9 @@ export class BarVertical2DComponent extends BaseChartComponent {
     const domain = [];
     for (const group of this.results) {
       for (const d of group.series) {
+        if (this.noBarWhenZero && d.value === 0) {
+          continue;
+        }
         if (!domain.includes(d.value)) {
           domain.push(d.value);
         }

@@ -200,7 +200,7 @@ export class BarHorizontalComponent extends BaseChartComponent {
   }
 
   getXDomain(): [number, number] {
-    const values = this.results.map(d => d.value);
+    const values = this.results.filter(d => d.value || !this.noBarWhenZero).map(d => d.value);
     const min = this.xScaleMin ? Math.min(this.xScaleMin, ...values) : Math.min(0, ...values);
 
     const max = this.xScaleMax ? Math.max(this.xScaleMax, ...values) : Math.max(0, ...values);

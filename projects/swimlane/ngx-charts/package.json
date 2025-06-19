@@ -1,6 +1,6 @@
 {
   "name": "@sopherio/ngx-charts",
-  "version": "22.3.4",
+  "version": "22.3.5",
   "description": "Declarative Charting Framework for Angular",
   "repository": {
     "type": "git",

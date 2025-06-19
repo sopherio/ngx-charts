@@ -143,6 +143,7 @@ export class SeriesHorizontal implements OnChanges {
 
       if (this.type === BarChartType.Standard) {
         bar.width = Math.abs(this.xScale(value) - this.xScale(xScaleMin));
+        if (value === 0.0) { bar.height = 0; }
         if (value < 0) {
           bar.x = this.xScale(value);
         } else {
