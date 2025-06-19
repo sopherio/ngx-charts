@@ -37,22 +37,22 @@ import { id } from '../utils/id';
     <!-- Bar markers -->
     <svg:g *ngFor="let annotation of annotations || []">
       <svg:line *ngIf="orientation === 'vertical'"
-        [attr.x1]="x"
+        [attr.x1]="x - 0.2 * width"
         [attr.y1]="annotation.position"
-        [attr.x2]="x + width"
+        [attr.x2]="x + 1.2 * width"
         [attr.y2]="annotation.position"
         [attr.stroke]="annotation.color || '#000'"
         stroke-width="2"
-        stroke-dasharray="3,3"
+        stroke-dasharray="5,3"
       />
       <svg:line *ngIf="orientation === 'horizontal'"
         [attr.x1]="annotation.position"
-        [attr.y1]="y"
+        [attr.y1]="y - 0.2 * height"
         [attr.x2]="annotation.position"
-        [attr.y2]="y + height"
+        [attr.y2]="y + 1.2 * height"
         [attr.stroke]="annotation.color || '#000'"
         stroke-width="2"
-        stroke-dasharray="3,3"
+        stroke-dasharray="5,3"
       />
       <svg:text *ngIf="showAnnotationLabels && orientation === 'vertical'"
         [attr.x]="x + 2"

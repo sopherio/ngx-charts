@@ -216,8 +216,9 @@ export class SeriesVerticalComponent implements OnChanges {
           bar.y = this.yScale(value);
         }
         for (const a of d.annotations || []) {
+          const position = this.yScale(a.value);
           bar.annotations.push({
-            position: this.yScale(a.value),
+            position,
             label: a.label,
             color: a.color
           });
@@ -266,7 +267,7 @@ export class SeriesVerticalComponent implements OnChanges {
       }
 
       let tooltipLabel = formattedLabel;
-      bar.ariaLabel = formattedLabel + ' ' + value.toLocaleString();
+      bar.ariaLabel = formattedLabel + ' ' + value?.toLocaleString();
       if (this.seriesName !== null && this.seriesName !== undefined) {
         tooltipLabel = `${this.seriesName} • ${formattedLabel}`;
         bar.data.series = this.seriesName;
@@ -278,7 +279,7 @@ export class SeriesVerticalComponent implements OnChanges {
         : `
         <span class="tooltip-label">${escapeLabel(tooltipLabel)}</span>
         <span class="tooltip-val">${
-          this.dataLabelFormatting ? this.dataLabelFormatting(value) : value.toLocaleString()
+          this.dataLabelFormatting ? this.dataLabelFormatting(value) : value?.toLocaleString()
         }</span>
       `;
 

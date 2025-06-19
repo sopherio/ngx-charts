@@ -31,10 +31,22 @@ export const single: SingleSeries = [
   },
   {
     name: 'United States',
-    value: 50000,
+    value: -5000,
     extra: {
       code: 'us'
-    }
+    },
+    annotations: [
+      {
+        value: 10000,
+        label: 'Marker 1',
+        color: '#ff0000'
+      },
+      {
+        value: 15000,
+        label: 'Marker 2',
+        color: '#00ff00'
+      }
+    ]
   },
   {
     name: 'France',
